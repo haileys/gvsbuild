@@ -182,6 +182,7 @@ LIBGETTEXTSRC_CFLAGS =	\
 
 # We build the libintl DLL/LIB at least
 INTL_LIB = vs$(VSVER)\$(CFG)\$(PLAT)\intl.lib
+INTL_DYNAMIC_LIB = vs$(VSVER)\$(CFG)\$(PLAT)\intl-dynamic.lib
 ASPRINTF_LIB = vs$(VSVER)\$(CFG)\$(PLAT)\asprintf.lib
 GETTEXTLIB_LIB = vs$(VSVER)\$(CFG)\$(PLAT)\gettextlib-$(GETTEXT_VERSION).lib
 GETTEXTPO_LIB = vs$(VSVER)\$(CFG)\$(PLAT)\gettextpo.lib

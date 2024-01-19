@@ -262,7 +262,9 @@ vs$(VSVER)\$(CFG)\$(PLAT)\libtextstyle\libtextstyle.res:
 # 	$(CC)|$(CXX) $(cflags) $< /Fo$*.obj  /Fe$@ [/link $(linker_flags) $(dep_libs)]
 
 # Rules for building .lib files
-$(INTL_LIB): vs$(VSVER)\$(CFG)\$(PLAT)\$(LIBINTL_DLL)
+$(INTL_LIB): vs$(VSVER)\$(CFG)\$(PLAT)\intl-runtime $(intl_runtime_OBJS)
+	lib $(ARFLAGS) $(intl_runtime_OBJS) /out:$@
+$(INTL_DYNAMIC_LIB): vs$(VSVER)\$(CFG)\$(PLAT)\$(LIBINTL_DLL)
 $(ASPRINTF_LIB): vs$(VSVER)\$(CFG)\$(PLAT)\$(LIBASPRINTF_DLL)
 $(GETTEXTLIB_LIB): vs$(VSVER)\$(CFG)\$(PLAT)\gettextlib-$(GETTEXT_VERSION).dll
 $(GETTEXTPO_LIB): vs$(VSVER)\$(CFG)\$(PLAT)\$(LIBGETTEXTPO_DLL)
@@ -289,20 +291,20 @@ vs$(VSVER)\$(CFG)\$(PLAT)\$(LIBASPRINTF_DLL): vs$(VSVER)\$(CFG)\$(PLAT)\asprintf
 vs$(VSVER)\$(CFG)\$(PLAT)\GNU.Gettext.dll: ..\gettext-runtime\intl-csharp\intl.cs vs$(VSVER)\$(CFG)\$(PLAT)\$(LIBINTL_DLL)
 	csc $(CSCFLAGS) /target:library /out:$@ ..\gettext-runtime\intl-csharp\intl.cs
 
-vs$(VSVER)\$(CFG)\$(PLAT)\gettextlib-$(GETTEXT_VERSION).dll: libgettextlib.def vs$(VSVER)\$(CFG)\$(PLAT)\gettextlib vs$(VSVER)\$(CFG)\$(PLAT)\gettextlib\libxml $(gettextlib_OBJS) $(INTL_LIB)
-	link /DLL $(LDFLAGS) -out:$@ $(gettextlib_OBJS) $(INTL_LIB) $(GETTEXTLIB_DEP_LIBS) /def:libgettextlib.def
+vs$(VSVER)\$(CFG)\$(PLAT)\gettextlib-$(GETTEXT_VERSION).dll: libgettextlib.def vs$(VSVER)\$(CFG)\$(PLAT)\gettextlib vs$(VSVER)\$(CFG)\$(PLAT)\gettextlib\libxml $(gettextlib_OBJS) $(INTL_DYNAMIC_LIB)
+	link /DLL $(LDFLAGS) -out:$@ $(gettextlib_OBJS) $(INTL_DYNAMIC_LIB) $(GETTEXTLIB_DEP_LIBS) /def:libgettextlib.def
 	@-if exist $@.manifest mt /manifest $@.manifest /outputresource:$@;2
 
-vs$(VSVER)\$(CFG)\$(PLAT)\$(LIBGETTEXTPO_DLL): vs$(VSVER)\$(CFG)\$(PLAT)\gettextpo $(gettextpo_OBJS) $(gettextpo_gnulib_OBJS) $(INTL_LIB)
-	link /DLL $(LDFLAGS) -out:$@ $(gettextpo_OBJS) $(gettextpo_gnulib_OBJS) $(INTL_LIB) $(GETTEXT_RUNTIME_DEP_LIBS) /implib:$(GETTEXTPO_LIB)
+vs$(VSVER)\$(CFG)\$(PLAT)\$(LIBGETTEXTPO_DLL): vs$(VSVER)\$(CFG)\$(PLAT)\gettextpo $(gettextpo_OBJS) $(gettextpo_gnulib_OBJS) $(INTL_DYNAMIC_LIB)
+	link /DLL $(LDFLAGS) -out:$@ $(gettextpo_OBJS) $(gettextpo_gnulib_OBJS) $(INTL_DYNAMIC_LIB) $(GETTEXT_RUNTIME_DEP_LIBS) /implib:$(GETTEXTPO_LIB)
 	@-if exist $@.manifest mt /manifest $@.manifest /outputresource:$@;2
 
 vs$(VSVER)\$(CFG)\$(PLAT)\gettextsrc-$(GETTEXT_VERSION).dll: libgettextsrc.def vs$(VSVER)\$(CFG)\$(PLAT)\gettextsrc $(gettextsrc_OBJS) $(LIBTEXTSTYLE_LIB) $(GETTEXTLIB_LIB)
-	link /DLL $(LDFLAGS) -out:$@ $(gettextsrc_OBJS) $(LIBTEXTSTYLE_LIB) $(GETTEXTLIB_LIB) $(INTL_LIB) $(GETTEXT_RUNTIME_DEP_LIBS) /def:libgettextsrc.def
+	link /DLL $(LDFLAGS) -out:$@ $(gettextsrc_OBJS) $(LIBTEXTSTYLE_LIB) $(GETTEXTLIB_LIB) $(INTL_DYNAMIC_LIB) $(GETTEXT_RUNTIME_DEP_LIBS) /def:libgettextsrc.def
 	@-if exist $@.manifest mt /manifest $@.manifest /outputresource:$@;2
 
 vs$(VSVER)\$(CFG)\$(PLAT)\$(LIBINTL_DLL): vs$(VSVER)\$(CFG)\$(PLAT)\intl-runtime $(intl_runtime_OBJS)
-	link /DLL $(LDFLAGS) -out:$@ $(intl_runtime_OBJS) $(GETTEXT_RUNTIME_DEP_LIBS) /implib:$(INTL_LIB)
+	link /DLL $(LDFLAGS) -out:$@ $(intl_runtime_OBJS) $(GETTEXT_RUNTIME_DEP_LIBS) /implib:$(INTL_DYNAMIC_LIB)
 	@-if exist $@.manifest mt /manifest $@.manifest /outputresource:$@;2
 
 vs$(VSVER)\$(CFG)\$(PLAT)\$(LIBTEXTSTYLE_DLL): vs$(VSVER)\$(CFG)\$(PLAT)\libtextstyle vs$(VSVER)\$(CFG)\$(PLAT)\libtextstyle\libxml $(libtextstyle_OBJS)
