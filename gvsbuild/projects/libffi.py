@@ -31,5 +31,5 @@ class Libffi(GitRepo, Meson):
         )
 
     def build(self):
-        Meson.build(self)
+        Meson.build(self, meson_params="-Ddefault_library=static")
         self.install(r"LICENSE share\doc\libffi")
