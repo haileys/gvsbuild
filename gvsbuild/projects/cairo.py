@@ -35,6 +35,6 @@ class Cairo(Tarball, Meson):
     def build(self):
         Meson.build(
             self,
-            meson_params="-Dfreetype=enabled",
+            meson_params="-Dfreetype=enabled -Ddefault_library=static",
         )
         self.install(r".\COPYING share\doc\cairo")
