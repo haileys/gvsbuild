@@ -44,7 +44,7 @@ class GLib(Tarball, Meson):
         )
 
     def build(self):
-        Meson.build(self, meson_params="-Ddefault_library=static")
+        Meson.build(self, meson_params="-Ddefault_library=static -Dtests=false")
         self.install(r".\LICENSES\* share\doc\glib")
 
 
