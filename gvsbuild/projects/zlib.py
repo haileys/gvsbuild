@@ -50,12 +50,12 @@ class Zlib(Tarball, Project):
             options = 'CFLAGS="-nologo -MDd -W3 -Od -Zi -Fd\\"zlib\\""'
 
         self.exec_vs(
-            r"nmake /nologo /f win32\Makefile.msc STATICLIB=zlib-static.lib IMPLIB=zlib1.lib "
+            r"nmake /nologo /f win32\Makefile.msc STATICLIB=zlib1.lib zlib1.lib"
             + options
         )
 
         self.install(r".\zlib.h .\zconf.h include")
-        self.install(r".\zlib1.dll .\zlib1.pdb bin")
+        self.install(r".\zlib1.pdb bin")
         self.install(r".\zlib1.lib lib")
 
         self.install_pc_files()
