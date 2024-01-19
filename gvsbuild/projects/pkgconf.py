@@ -34,7 +34,7 @@ class PkgConf(Tarball, Meson):
         self.add_param("-Dtests=disabled")
 
     def build(self):
-        Meson.build(self)
+        Meson.build(self, meson_params="-Ddefault_library=static")
         self.install(r".\COPYING share\doc\pkgconf")
 
     def post_install(self):
