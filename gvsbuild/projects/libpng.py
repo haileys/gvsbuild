@@ -31,7 +31,7 @@ class Libpng(Tarball, CmakeProject):
         )
 
     def build(self):
-        CmakeProject.build(self, use_ninja=True)
+        CmakeProject.build(self, use_ninja=True, cmake_params="-DPNG_STATIC=ON -DPNG_SHARED=OFF")
 
         self.install_pc_files()
         self.install(r"LICENSE share\doc\libpng")
