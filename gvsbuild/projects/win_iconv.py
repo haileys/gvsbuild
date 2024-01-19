@@ -36,7 +36,7 @@ class WinIconv(Tarball, CmakeProject):
 
     def build(self):
         CmakeProject.build(
-            self, use_ninja=True, cmake_params="-DBUILD_TEST=1", make_tests=True
+            self, use_ninja=True, cmake_params="-DBUILD_TEST=0 -DBUILD_STATIC=ON -DBUILD_SHARED=OFF", make_tests=False
         )
 
         self.install(r".\COPYING share\doc\win-iconv")
