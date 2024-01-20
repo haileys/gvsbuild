@@ -187,7 +187,6 @@ GETTEXTLIB_LIB = vs$(VSVER)\$(CFG)\$(PLAT)\gettextlib-$(GETTEXT_VERSION).lib
 GETTEXTPO_LIB = vs$(VSVER)\$(CFG)\$(PLAT)\gettextpo.lib
 GETTEXTSRC_LIB = vs$(VSVER)\$(CFG)\$(PLAT)\gettextsrc-$(GETTEXT_VERSION).lib
 GRT_LIB = vs$(VSVER)\$(CFG)\$(PLAT)\grt.lib
-INTL_CS_DLL = vs$(VSVER)\$(CFG)\$(PLAT)\GNU.Gettext.dll
 LIBGREP_LIB = vs$(VSVER)\$(CFG)\$(PLAT)\grep.lib
 LIBTEXTSTYLE_LIB = vs$(VSVER)\$(CFG)\$(PLAT)\textstyle.lib
 
@@ -203,7 +202,4 @@ LIBINTL_DLL = intl$(INTL_DLL_SUFFIX).dll
 LIBASPRINTF_DLL = asprintf$(OTHER_DLL_SUFFIX).dll
 LIBTEXTSTYLE_DLL = textstyle$(OTHER_DLL_SUFFIX).dll
 LIBGETTEXTPO_DLL = gettextpo$(OTHER_DLL_SUFFIX).dll
-GETTEXT_RUNTIME_LIBS =	\
-	$(ASPRINTF_LIB)	\
-	$(INTL_LIB)	\
-	$(INTL_CS_DLL)
+GETTEXT_RUNTIME_LIBS = $(INTL_LIB)
