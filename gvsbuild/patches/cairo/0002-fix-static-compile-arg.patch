@@ -1,0 +1,12 @@
+diff --git a/src/meson.build b/src/meson.build
+index ac06ac61a..01d0c64d8 100644
+--- a/src/meson.build
++++ b/src/meson.build
+@@ -264,6 +264,7 @@ libcairo_dep = declare_dependency(link_with: libcairo,
+ pkgmod.generate(libcairo,
+   description: 'Multi-platform 2D graphics library',
+   subdirs: [meson.project_name()],
++  extra_cflags: cairo_static_args,
+ )
+
+ meson.override_dependency('cairo', libcairo_dep)
