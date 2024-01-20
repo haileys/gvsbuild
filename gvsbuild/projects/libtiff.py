@@ -35,6 +35,6 @@ class Libtiff4(Tarball, CmakeProject):
         )
 
     def build(self):
-        CmakeProject.build(self, use_ninja=True)
+        CmakeProject.build(self, use_ninja=True, cmake_params="-DBUILD_SHARED_LIBS=OFF")
 
         self.install(r".\COPYRIGHT share\doc\tiff")
