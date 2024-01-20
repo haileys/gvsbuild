@@ -29,9 +29,12 @@ class Expat(Tarball, CmakeProject):
             archive_url="https://github.com/libexpat/libexpat/releases/download/R_{major}_{minor}_{micro}/expat-{version}.tar.xz",
             hash="ef2420f0232c087801abf705e89ae65f6257df6b7931d37846a193ef2e8cdcbe",
             dependencies=["cmake", "ninja"],
-            patches=["0001-CMakeLists-do-not-add-postfix-d-in-debug-builds.patch"],
+            patches=[
+                "0001-CMakeLists-do-not-add-postfix-d-in-debug-builds.patch",
+                "0002-xml-static-in-pkgconfig.patch",
+            ],
         )
 
     def build(self):
-        CmakeProject.build(self, use_ninja=True, cmake_params="-DBUILD_SHARED_LIBS=OFF")
+        CmakeProject.build(self, use_ninja=True, cmake_params="-DBUILD_SHARED_LIBS=OFF -DEXPAT_BUILD_PKGCONFIG=ON")
         self.install(r".\COPYING share\doc\expat")
