@@ -37,5 +37,5 @@ class Harfbuzz(Tarball, Meson):
             self.add_param("-Dintrospection=disabled")
 
     def build(self):
-        Meson.build(self, meson_params="-Ddefault_library=static")
+        Meson.build(self, meson_params="-Ddefault_library=static -Dtests=disabled -Dutilities=disabled -Dbenchmark=disabled -Ddocs=disabled")
         self.install(r".\COPYING share\doc\harfbuzz")
