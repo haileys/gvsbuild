@@ -32,8 +32,6 @@ class GdkPixbuf(Tarball, Meson):
                 "ninja",
                 "pkgconf",
                 "meson",
-                "libtiff-4",
-                "libjpeg-turbo",
                 "glib",
                 "libpng",
             ],
@@ -45,7 +43,8 @@ class GdkPixbuf(Tarball, Meson):
         else:
             enable_gi = "disabled"
 
-        self.add_param("-Dbuiltin_loaders=all")
+        self.add_param("-Dnative_windows_loaders=true")
+        self.add_param("-Dpng=enabled")
         self.add_param(f"-Dintrospection={enable_gi}")
         self.add_param("-Dman=false")
         self.add_param("-Ddefault_library=static")
