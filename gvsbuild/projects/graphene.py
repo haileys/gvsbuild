@@ -40,5 +40,5 @@ class Graphene(Tarball, Meson):
         self.add_param(f"-Dintrospection={enable_gi}")
 
     def build(self):
-        Meson.build(self, make_tests=True)
+        Meson.build(self, make_tests=True, meson_params="-Ddefault_library=static")
         self.install(r".\LICENSE share\doc\graphene")
