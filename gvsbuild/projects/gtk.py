@@ -138,6 +138,10 @@ class Gtk4(Tarball, Meson):
                 "glib",
                 "fribidi",
             ],
+            patches=[
+                "0001-static-library.patch",
+                "0002-gdk-static-compile-def.patch",
+            ],
         )
         if self.opts.enable_gi:
             self.add_dependency("gobject-introspection")
