@@ -1,0 +1,76 @@
+diff --git a/src/dispatch_common.h b/src/dispatch_common.h
+index a136943..f7fdf9f 100644
+--- a/src/dispatch_common.h
++++ b/src/dispatch_common.h
+@@ -192,8 +192,6 @@ void gl_init_dispatch_table(void);
+ void gl_switch_to_dispatch_table(void);
+ void wgl_init_dispatch_table(void);
+ void wgl_switch_to_dispatch_table(void);
+-extern uint32_t gl_tls_index, gl_tls_size;
+-extern uint32_t wgl_tls_index, wgl_tls_size;
+
+ #define wglMakeCurrent_unwrapped epoxy_wglMakeCurrent_unwrapped
+ #define wglMakeContextCurrentARB_unwrapped epoxy_wglMakeContextCurrentARB_unwrapped
+diff --git a/src/dispatch_wgl.c b/src/dispatch_wgl.c
+index 7baf130..157e52f 100644
+--- a/src/dispatch_wgl.c
++++ b/src/dispatch_wgl.c
+@@ -89,58 +89,6 @@ epoxy_handle_external_wglMakeCurrent(void)
+     }
+ }
+
+-/**
+- * This global symbol is apparently looked up by Windows when loading
+- * a DLL, but it doesn't declare the prototype.
+- */
+-BOOL WINAPI
+-DllMain(HINSTANCE dll, DWORD reason, LPVOID reserved);
+-
+-BOOL WINAPI
+-DllMain(HINSTANCE dll, DWORD reason, LPVOID reserved)
+-{
+-    void *data;
+-
+-    switch (reason) {
+-    case DLL_PROCESS_ATTACH:
+-        gl_tls_index = TlsAlloc();
+-        if (gl_tls_index == TLS_OUT_OF_INDEXES)
+-            return FALSE;
+-        wgl_tls_index = TlsAlloc();
+-        if (wgl_tls_index == TLS_OUT_OF_INDEXES)
+-            return FALSE;
+-
+-        first_context_current = false;
+-
+-        /* FALLTHROUGH */
+-
+-    case DLL_THREAD_ATTACH:
+-        data = LocalAlloc(LPTR, gl_tls_size);
+-        TlsSetValue(gl_tls_index, data);
+-
+-        data = LocalAlloc(LPTR, wgl_tls_size);
+-        TlsSetValue(wgl_tls_index, data);
+-
+-        break;
+-
+-    case DLL_THREAD_DETACH:
+-    case DLL_PROCESS_DETACH:
+-        data = TlsGetValue(gl_tls_index);
+-        LocalFree(data);
+-
+-        data = TlsGetValue(wgl_tls_index);
+-        LocalFree(data);
+-
+-        if (reason == DLL_PROCESS_DETACH) {
+-            TlsFree(gl_tls_index);
+-            TlsFree(wgl_tls_index);
+-        }
+-        break;
+-    }
+-
+-    return TRUE;
+-}
+-
+ WRAPPER_VISIBILITY (BOOL)
+ WRAPPER(epoxy_wglMakeCurrent)(HDC hdc, HGLRC hglrc)
+ {
