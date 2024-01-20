@@ -50,6 +50,8 @@ class Libadwaita(Tarball, Meson):
         self.add_param("-Dgtk_doc=false")
         self.add_param("-Dvapi=false")
         self.add_param("-Ddefault_library=static")
+        self.add_param("-Dtests=false")
+        self.add_param("-Dexamples=false")
 
     def build(self, **kwargs):
         Meson.build(self)
