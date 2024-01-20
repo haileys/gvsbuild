@@ -37,6 +37,7 @@ class GdkPixbuf(Tarball, Meson):
                 "glib",
                 "libpng",
             ],
+            patches=["0001-dep-fix.patch"],
         )
         if self.opts.enable_gi:
             self.add_dependency("gobject-introspection")
