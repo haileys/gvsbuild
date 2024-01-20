@@ -38,6 +38,6 @@ class LibjpegTurbo(Tarball, CmakeProject):
         # Keeping the env var support might be slow:
         # https://github.com/libjpeg-turbo/libjpeg-turbo/issues/600
         self.builder.mod_env("CMAKE_C_FLAGS", "-DNO_GETENV")
-        CmakeProject.build(self, use_ninja=True)
+        CmakeProject.build(self, use_ninja=True, cmake_params="-DENABLE_SHARED=FALSE -DENABLE_STATIC=TRUE")
 
         self.install(r".\LICENSE.md share\doc\libjpeg-turbo")
