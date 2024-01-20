@@ -124,7 +124,7 @@ VALID_CFGSET = TRUE
 # One may change these items, but be sure to test
 # the resulting binaries
 !if "$(CFG)" == "release"
-CFLAGS_ADD = /MD /O2 /MP /GL
+CFLAGS_ADD = /MD /O2 /MP
 !if $(VSVER) > 9 && $(VSVER) < 14
 # Undocumented "enhance optimized debugging" switch. Became documented
 # as "/Zo" in VS 2013 Update 3, and is turned on by default in VS 2015.
