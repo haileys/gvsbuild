@@ -30,7 +30,7 @@
 #define ENABLE_NLS 1
 
 /* Define to 1 if the package shall run at any location in the file system. */
-#define ENABLE_RELOCATABLE 1
+#define ENABLE_RELOCATABLE 0
 
 /* Define this to 1 if F_DUPFD behavior does not match POSIX */
 /* #undef FCNTL_DUPFD_BUGGY */

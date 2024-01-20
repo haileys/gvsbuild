@@ -67,7 +67,7 @@
 #define ENABLE_NLS 1
 
 /* Define to 1 if the package shall run at any location in the file system. */
-#define ENABLE_RELOCATABLE 1
+#define ENABLE_RELOCATABLE 0
 
 /* Define according to the byte order of the target machine: 1 for big endian,
    0 for little endian. */
