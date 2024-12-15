@@ -17,17 +17,19 @@ from gvsbuild.utils.base_builders import Meson
 from gvsbuild.utils.base_expanders import Tarball
 from gvsbuild.utils.base_project import Project, project_add
 
+import os
 
 @project_add
 class Librsvg(Tarball, Meson):
     def __init__(self):
+        cwd = os.getcwd().replace("\\", "/").replace("C:","")
         Project.__init__(
             self,
             "librsvg",
             version="2.59.2",
             repository="https://gitlab.gnome.org/GNOME/librsvg",
-            archive_url="https://download.gnome.org/sources/librsvg/{major}.{minor}/librsvg-{version}.tar.xz",
-            hash="ecd293fb0cc338c170171bbc7bcfbea6725d041c95f31385dc935409933e4597",
+            archive_url=f"file://{cwd}/librsvg-2.59.2-without-symlinks.tar.gz" ,
+            hash="a7037d8366f36266f758df4689f6c2ea3208fae932095c80660fd8c031d56b41",
             dependencies=[
                 "cargo",
                 "cairo",
